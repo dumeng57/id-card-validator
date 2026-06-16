@@ -1,0 +1,28 @@
+# 模拟已有历史数据，{用户名:{喜欢的电影名单}}
+from random import *
+seed(42)
+# 模拟已有历史数据，{用户名:{喜欢的电影名单}}
+data = {'user'+str(i+1):{'film'+str(randint(1,15))  for j in range(randint(1,10))} for i in range(10)}
+
+use_film=list(input().split())
+same_film=[]
+
+for item in data.items():         #这里对字典的值进行收集，可以发现的是值都是列表所以可以进行序列查找
+    for j in item[1]:
+        if j in use_film :
+            same_film.append(item[0])
+if not same_film:    #防止same_film为空，影响程序进行
+    print("没有匹配的用户无法推荐")
+else:
+    
+    max_count=same_film.count(max(same_film,key=same_film.count))
+    
+    max_user=max(same_film,key=same_film.count)
+    print(max_user)
+    print()
+    user_film_set=set(use_film)
+    same_user_set=set(data[max_user])
+    
+    accom_film=list(same_user_set - user_film_set)
+    accom_film.sort()
+    print(accom_film)

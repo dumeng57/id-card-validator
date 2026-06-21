@@ -1,0 +1,31 @@
+def find_repeating_decimal(a,b):
+    if a%b==0:
+        print(0)
+        return 
+    else:
+        num_list=[]   #创建商的列表，为后续一一对应余数重复出现用
+        last_list=[]   #创建余数列表，找出重复余数，确定循环节
+        while True:
+            t=a%b     #取余
+            if t == 0:   #判断是否为0
+                print(0)
+                break
+
+            if t in last_list:    #如果出现重复余数，直接打印第一次出现该余数至末尾的数字，即为循环节
+                for i in range(len(last_list)):     
+                    if last_list[i] == t:
+                        print(*num_list[i:],sep='')
+                        break
+                break   #要把外层while循环结束，否则一直循环
+            a*=10    #扩大10倍取新余数 
+            k=a//b   #取商
+            num_list.append(k)   
+            last_list.append(t)
+            a=a%b    #a更新
+n=int(input())
+for i in range(n):
+    a,b=map(int,input().split())
+    find_repeating_decimal(a,b)
+
+
+    核心：取余与商对应
